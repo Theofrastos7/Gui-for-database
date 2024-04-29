@@ -1,0 +1,126 @@
+DELIMITER $
+CREATE PROCEDURE evaluate(IN p_id INT, IN p_user VARCHAR(30), IN p_eval VARCHAR(30), OUT p_num INT)
+BEGIN 
+    DECLARE p_plithos INT;
+    DECLARE p_eval1 VARCHAR(30);
+    DECLARE p_eval2 VARCHAR(30);
+    
+    DECLARE sc1 INT;
+    DECLARE sc2 INT;
+    
+    DECLARE bsc INT;
+    DECLARE msc INT;
+    DECLARE phd INT;
+    DECLARE fl INT;
+    DECLARE proj INT;
+    
+
+	SELECT COUNT(*)
+    INTO p_plithos
+    FROM applies
+    WHERE em_username = p_user AND job_id = p_id AND (evaluator1 = p_eval OR evaluator2 = p_eval);
+
+    SELECT evaluator1, evaluator2, score1, score2
+    INTO p_eval1, p_eval2, sc1, sc2
+    FROM applies
+    WHERE em_username = p_user AND job_id = p_id AND (evaluator1 = p_eval OR evaluator2 = p_eval);
+    
+     -- SELECT p_plithos, p_eval1, sc1, p_eval2, sc2;
+        
+    IF (p_plithos = 0) THEN
+        SET p_num = 0;
+        SELECT 'Evaluator does not evaluate for this position and this employee.';
+        
+    ELSE IF (p_eval1 = p_eval) THEN
+		IF (sc1 IS NOT NULL) THEN
+			SET p_num = sc1;
+        ELSE 
+		-- fl
+		SELECT COUNT(*) 
+            INTO fl
+            FROM languages
+            WHERE candid = p_user;
+            
+            -- proj
+            SELECT COUNT(*) 
+            INTO proj
+            FROM project
+            WHERE candid = p_user;
+            
+            -- bsc
+            SELECT COUNT(*)
+            INTO bsc
+		FROM degree d
+		INNER JOIN has_degree hs ON hs.degr_tittle = d.titlos AND hs.degr_idryma = d.idryma
+		WHERE cand_username = p_user AND bathmida = 'BSc';
+            
+            -- msc
+            SELECT COUNT(*)
+            INTO msc
+		FROM degree d
+		INNER JOIN has_degree hs ON hs.degr_tittle = d.titlos AND hs.degr_idryma = d.idryma
+		WHERE cand_username = p_user AND bathmida = 'MSc';
+            
+            -- PhD
+            SELECT COUNT(*)
+            INTO phd
+		FROM degree d
+		INNER JOIN has_degree hs ON hs.degr_tittle = d.titlos AND hs.degr_idryma = d.idryma
+		WHERE cand_username = p_user AND bathmida = 'PhD';
+            
+            SET p_num = proj + fl + bsc + 2*msc + 3*phd;
+            
+            UPDATE applies
+            SET score1 = p_num
+            WHERE em_username = p_user AND job_id = p_id AND evaluator1 = p_eval;
+            
+        END IF;
+	ELSE 
+		IF (sc2 IS NOT NULL) THEN
+			SET p_num = sc2;
+        ELSE 
+			-- fl
+	SELECT COUNT(*) 
+            INTO fl
+            FROM languages
+            WHERE candid = p_user;
+            
+            -- proj
+            SELECT COUNT(*) 
+            INTO proj
+            FROM project
+            WHERE candid = p_user;
+            
+            -- bsc
+            SELECT COUNT(*)
+            INTO bsc
+		FROM degree d
+		INNER JOIN has_degree hs ON hs.degr_tittle = d.titlos AND hs.degr_idryma = d.idryma
+		WHERE cand_username = p_user AND bathmida = 'BSc';
+            
+            -- msc
+            SELECT COUNT(*)
+            INTO msc
+		FROM degree d
+		INNER JOIN has_degree hs ON hs.degr_tittle = d.titlos AND hs.degr_idryma = d.idryma
+		WHERE cand_username = p_user AND bathmida = 'MSc';
+            
+            -- PhD
+            SELECT COUNT(*)
+            INTO phd
+		FROM degree d
+		INNER JOIN has_degree hs ON hs.degr_tittle = d.titlos AND hs.degr_idryma = d.idryma
+		WHERE cand_username = p_user AND bathmida = 'PhD';
+            
+            SET p_num = proj + fl + bsc + 2*msc + 3*phd;
+            
+            UPDATE applies
+            SET score2 = p_num
+            WHERE em_username = p_user AND job_id = p_id AND evaluator2 = p_eval;
+        END IF;
+    END IF;
+    END IF;
+END$
+DELIMITER ;
+
+

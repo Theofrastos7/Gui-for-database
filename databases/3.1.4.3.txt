@@ -1,0 +1,37 @@
+DELIMITER $
+CREATE TRIGGER cancelapplyandupdatemaxnumofapply 
+BEFORE UPDATE ON applies
+FOR EACH ROW 
+BEGIN
+	DECLARE diff INT;
+	DECLARE maxapply INT;
+    DECLARE final_date DATE;
+	
+	SELECT start_date
+    INTO final_date
+    FROM job
+    WHERE id = NEW.job_id;
+
+	SET final_date = DATE_SUB(final_date, INTERVAL 10 DAY);
+    
+    IF (NEW.status = 'Canceled' AND OLD.status = 'Active') THEN
+	IF (CURDATE() > final_date) THEN
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Can not cancel an application in less than 10 days before the starting date!';
+	END IF;
+    END IF;
+
+	IF (NEW.status = 'Active' AND OLD.status = 'Canceled') THEN
+	SELECT COUNT(*) 
+    INTO maxapply 
+	FROM applies
+	WHERE em_username = NEW.em_username AND status = 'Active';
+    
+	IF maxapply >=3 THEN
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Can not apply for more than 3 active positions!(2nd trigger)';
+	END IF;
+END IF;
+END$
+DELIMITER ;
+

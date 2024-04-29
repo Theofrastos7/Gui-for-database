@@ -1,0 +1,207 @@
+INSERT INTO user (username, password, name, lastname, reg_date, email)
+ VALUES ('ErenYeager', 'titan', 'Eren', 'Yeager', '2008-7-4 12:45:12', 'yeager@gmail.com'),
+		('SashaBraus', 'bow', 'Sasha', 'Braus', '2009-10-2 12:30:32', 'sasha@gmail.com'), 
+		('ArminAtler', 'colossal', 'Armin', 'Atler', '2008-7-30 12:30:59', 'armin@gmail.com'),
+        ('johndoe123', 'pass123', 'John', 'Doe', '2023-11-05 12:30:00', 'johndoe123@example.com'),
+		('janesmith456', 'secure456', 'Jane', 'Smith', '2023-11-05 14:45:00', 'janesmith456@example.com'),
+		('robertj123', 'p@ssw0rd', 'Robert', 'Johnson', '2023-11-05 10:15:00', 'robertj123@example.com'),
+		('mikesullivan789', 'myP@ss123', 'Mike', 'Sullivan', '2023-11-05 08:00:00', 'mikesullivan789@example.com'),
+		('sarahbrown010', 'secret789', 'Sarah', 'Brown', '2023-11-05 16:20:00', 'sarahbrown010@example.com'),
+		('chriswilson111', 'password987', 'Chris', 'Wilson', '2023-11-05 09:30:00', 'chriswilson111@example.com'),
+		('emilymartinez789', '1234pass', 'Emily', 'Martinez', '2023-11-05 11:45:00', 'emilymartinez789@example.com'),
+		('davidlee456', 'leePass12', 'David', 'Lee', '2023-11-05 13:15:00', 'davidlee456@example.com'),
+		('laurajohnson123', 'lauraPass', 'Laura', 'Johnson', '2023-11-05 15:30:00', 'laurajohnson123@example.com'),
+        ('nkots','1@3n4!','Νίκος','Κότσου','1992-12-30 15:30:00','nkots@gmail.com'),
+		('kpetr3','kp#t1@','Κωνσταντίνος','Πέτρου','1999-10-08 10:20:16','kpetr@gmail.com'),
+		('kpapado99','0k09**a','Κατερίνα', 'Παπαδοπούλου','2000-11-26 09:00:01','kpapado@gmail.com'),
+		('elenandri123','el@109*!','Ελένη','Ανδρικοπούλου','1997-12-21 11:32:57','elenadri@gmail.com'),
+		('mdimi4','mard#m#!@3','Μαρία','Δημητρίου','2001-06-19 12:55:25','mardimi@gmail.com'),
+		('dm789','d*kmj9876','Δήμητρα','Μάριου','2004-08-09 10:12:40','dimimariou@gmail.com'),
+		('g1kar','9!kdtw','Γιώργος','Καρακώστας','1998-02-20 09:56:32','giorgoskarak@gmail.com'),
+		('markara9@1','085gf%','Μάριος','Καρακώστας','2001-09-07 08:28:18','marioskarak@gmail.com'),
+		('anastaso!','kabd!$r','Αθηνά','Αναστασοπούλου','1990-05-17 09:05:23','athinanast@gmail.com'),
+		('gpaulo4!','kshdgf^%!11','Γιάννης','Παυλόπουλος','2003-05-09 13:40:45','gpaulo@gmail.com'),
+		('ankotrop88','085$asd','Αναστάσιος','Κοτρώπουλος','2005-09-12 14:09:07','anastkotr@gmail.com'),
+		('kmanopoulou','k0nna086!@','Κωνσταντίνα','Μανοπούλου','2004-07-18 09:23:28','konmanop@gmail.com'),
+        ('Camille', 'scissors', 'Cam', 'ille', '2012-7-4 12:45:12', 'camille@gmail.com'),
+		('Cho gath', 'feast', 'Cho', 'Gath', '2009-7-4 12:45:12', 'chogath@gmail.com');
+        
+INSERT INTO employee (username, bio, sistatikes, certificates)
+ VALUES ('ErenYeager', 'bio1', 'sistatiki1', 'cerifticate1'),						
+		('SashaBraus', 'bio2', 'sistatiki2', 'certificate2'), 
+		('ArminAtler', 'bio3', 'sistatiki3', 'certificate3'),
+        ('johndoe123', 'bio4', 'sistatiki4', 'certificate4'),
+		('janesmith456', 'bio5', 'sistatiki5', 'certificate5'),
+		('robertj123', 'bio6', 'sistatiki6', 'certificate6'),
+        ('g1kar', 'Έχει σπουδάσει στο Οικονομικό Πανεπιστήμιο Αθηνών, αποφοίτησε με άριστα, γνωρίζει 2 ξένες γλώσσες','Συστατική από Καθηγητή','Αγγλικών, Γαλλικών'),
+		('markara9@1','Έχει σπουδάσει στο Οικονομικό Πανεπιστήμιο Αθηνών, αποφοίτησε με άριστα, πολύ καλές αξιολογήσεις από την προηγούμενη δουλειά, γνωρίζει 2 ξένες γλώσσες','Συστατική από πρώην Εργοδότη','Αγγλικών, Γερμανικών'),
+		('anastaso!','Έχει σπουδάσει στο Οικονομικό Πανεπιστήμιο Αθηνών, συμμετοχή σε συνέδρια, 5 ετής εργασία στο εξωτερικό, γνωρίζει 3 ξένες γλώσσες','Συστατική από πρώην Εργοδότη','Αγγλικών, Γαλλικών, Γερμανικών'),
+		('gpaulo4!','Έχει σπουδάσει στο Οικονομικό Πανεπιστήμιο Αθηνών, πρακτική σε γνωστή πολυεθνική εταιρεία, γνωρίζει 1 ξένη γλώσσα','Συστατική από Καθηγητή','Γερμανικών'),
+		('ankotrop88','Έχει σπουδάσει στο Οικονομικό Πανεπιστήμιο Αθηνών, προϋπηρεσία 1 έτους σε ελληνική εταιρεία, γνωρίζει 1 ξένη γλώσσα','Συστατική από πρώην Εργοδότη','Γαλλικών'),
+		('kmanopoulou','Έχει σπουδάσει στο Οικονομικό Πανεπιστήμιο Αθηνών, αποφοίητησε με άριστα, συμμετοχή σε συνέδρια, 8μηνη εργασία σε εταιρεία, γνωρίζει 1 ξένη γλώσσα','Συστατική από πρώην Εργοδότη','Αγγλικών');
+        
+INSERT INTO languages (candid,lang)
+VALUES  ('ErenYeager', 'CH'),
+		('SashaBraus', 'EN'),
+        ('ArminAtler', 'SP'),
+        ('johndoe123','GR'),
+        ('g1kar', 'EN'),
+		('markara9@1','GR'),
+		('anastaso!','GR'),
+		('gpaulo4!','GE');
+        
+INSERT INTO project (candid, num, descr, url)
+VALUES  ('ErenYeager', 1, 'descr1', 'url1'),	
+		('ErenYeager', 2, 'descr7', 'url7'),					
+		('SashaBraus', 1, 'descr2', 'url2'), 
+		('ArminAtler', 1, 'descr3', 'url3'),
+        ('johndoe123', 1, 'descr4', 'url4'),
+		('janesmith456', 1, 'descr5', 'url5'),
+		('robertj123', 1, 'descr6', 'url6'),
+        ('g1kar', 23, 'Concentrations: Finance, Marketing and Strategy, International Business','https://g1finance.com'),
+		('g1kar', 30, 'Concentrations: Innovation and Entrepreneurship Technology, Logistics and Operations','https://g1logistics.com'),
+		('markara9@1', 5, 'Concentrations: HR(Human Resources), Logistics Managment','https://marproj.com'),
+		('anastaso!', 7, 'Concentrations: Finance, Marketing, Oil and Gas, Strategic Planning','https://projectoilandgas.com'),
+		('gpaulo4!', 9, 'Concentrations: Entrepreneurship Leadership, General Management, Retail Management, Operations Management, Business Strategy','https://projectleader.com'),
+		('ankotrop88', 19,'Concentrations: Hospitality & Tourism Management, Logistics & Supply, Chain Management, Information Technology & Services, Corporate Social Responsibility, Innovation Management & Design Thinking,International Business','https://managementproject.com'),
+		('kmanopoulou', 20, 'Concentrations: Banking and Finance, Entrepreneurship Management, Marketing in the Digital Era','https://kmanopoulouproj.com');
+        
+      
+
+
+INSERT INTO etaireia (AFM, DOY, name, tel, street, num, city, country) 
+VALUES  ('215', 'doy1', 'ote', '2610310310', 'maizonos', 59, 'Patra', 'Ellada'),
+		('320', 'doy2', 'vodafone', '2610215854', 'korinthou', 20, 'Patra', 'Ellada'),
+		('195', 'doy3', 'wind', '2610546852', 'Aiolou', 121, 'Athina', 'Ellada'),
+        ('109890986','Α΄ ΔΟΥ ΠΑΤΡΩΝ', 'Γάλα Πρώτο', '2610876998', 'Κανακάρη', 20, 'Πάτρα', 'Ελλάδα'),
+		('908724696','Β΄ ΔΟΥ ΠΑΤΡΩΝ', 'Μπισκότα Παπαδοπούλου', '2610087345', 'Δημητρίου Βότση', 9, 'Πάτρα', 'Ελλάδα'),
+		('998087401','Α΄ ΔΟΥ ΠΑΤΡΩΝ', 'Τσίχλες Μαστίχα', '2610537291', 'Παπαφλέσσα', 36, 'Πάτρα', 'Ελλάδα');
+
+INSERT INTO evaluator (username, exp_years, firm)
+VALUES  ('mikesullivan789', 4, '215'),
+		('sarahbrown010', 6, '320'),
+		('chriswilson111', 7,'320'),
+		('emilymartinez789', 3,'195'),
+		('davidlee456', 2,'215'),
+		('laurajohnson123', 1,'215'),
+        ('nkots',20,'109890986'),
+		('kpetr3',15,'908724696'),
+		('kpapado99',10,'908724696'),
+		('elenandri123',22,'109890986'),
+		('mdimi4',09,'998087401'),
+		('dm789',18,'109890986');
+        
+INSERT INTO degree (titlos, idryma, bathmida)
+VALUES  ('mhxanikos','ceid','BSc'),
+        ('hlektrologs','ceid','MSc'),
+		('datamanager','ceid','PhD'),
+		('mhxanikos','hlektologon','MSc'),
+		('hlektrologos','hlektrologon','PhD'),
+		('mprizakias','hlektrologon','MSc'),
+        ('Πτυχίο Οικονομικών','Οικονομικό Πανεπιστήμιο Αθηνών','BSc'),
+		('Μεταπτυχιακό Στα Εφαρμοσμένα Οικονομικά και Χρηματοοικονομικά','Οικονομικό Πανεπιστήμιο Αθηνών','MSc'),
+		('Μεταπτυχιακό Στα Επιχειρηματική Οικονομική με Αναλυτικές Μεθόδους ','Οικονομικό Πανεπιστήμιο Αθηνών','MSc'),
+		('Διδακτορικό Δίπλωμα Σπουδών στην Οικονομική Επιστήμη','Οικονομικό Πανεπιστήμιο Αθηνών','PhD'),
+		('Πτυχίο Διοικητικής Επιστήμης και Τεχνολογίας','Οικονομικό Πανεπιστήμιο Αθηνών','BSc'),
+		('Πτυχίο Διοίκησης Επιχειρήσεων','Οικονομικό Πανεπιστήμιο Αθηνών','BSc');
+        
+INSERT INTO has_degree (degr_tittle, degr_idryma, cand_username, etos, grade)
+VALUES  ('mhxanikos','ceid','ErenYeager', 2015, 8.43),
+        ('hlektrologs','ceid','ArminAtler',2016, 9.5),
+		('datamanager','ceid','SashaBraus',2020, 7.8),
+		('mprizakias','hlektrologon','robertj123',2009, 5.2),
+        ('Πτυχίο Οικονομικών','Οικονομικό Πανεπιστήμιο Αθηνών','g1kar','2019', '9'),
+		('Μεταπτυχιακό Στα Εφαρμοσμένα Οικονομικά και Χρηματοοικονομικά','Οικονομικό Πανεπιστήμιο Αθηνών','markara9@1','2012','9.1'),
+		('Μεταπτυχιακό Στα Επιχειρηματική Οικονομική με Αναλυτικές Μεθόδους ','Οικονομικό Πανεπιστήμιο Αθηνών','anastaso!','2010','8.3'),
+		('Διδακτορικό Δίπλωμα Σπουδών στην Οικονομική Επιστήμη','Οικονομικό Πανεπιστήμιο Αθηνών','gpaulo4!','2020','7.9');
+        
+	
+
+INSERT INTO job (id, start_date, salary, position, edra, evaluator, announce_date, submission_date)
+VALUES  (152, '2024-5-6', 1200, 'manager', 'Patra', 'mikesullivan789', '2023-4-5 12:20:15', '2023-4-20'),
+		(202, '2024-10-12', 1000, 'manager', 'Patra', 'davidlee456', '2023-10-1 14:45:30', '2023-10-15'),
+		(93, '2024-5-30', 900, 'developer', 'Athens', 'emilymartinez789', '2023-12-5 10:15:45', '2023-6-25'),
+		(55, '2024-12-12', 1500, 'designer', 'Thessaloniki', 'mikesullivan789', '2023-11-30 16:30:20', '2023-12-15'),
+		(156, '2024-7-1', 2000, 'manager', 'Heraklio', 'chriswilson111', '2023-6-6 09:50:10', '2023-6-30'),
+		(300, '2024-9-3', 1500, 'developer', 'Ioannina', 'emilymartinez789', '2023-8-10 08:00:55', '2023-8-20'),
+		(259, '2024-1-12', 1000, 'designer', 'Larisa', 'sarahbrown010', '2022-12-31 15:10:35', '2023-1-15'),
+		(101, '2023-2-10', 1100, 'manager', 'Rhodos', 'chriswilson111', '2023-2-1 12:40:25', '2023-3-1'),
+        		(780098124,'2023-12-20','1000','Secretary','Patras,Greece','elenandri123','2023-10-30 10:30:00','2023-11-20'),
+		(649109823,'2024-01-15','1500','Manager','Patras,Greece','nkots','2023-12-01 09:05:12','2023-11-20'),
+		(691730223,'2024-01-15','1200','Αccountant','Patras,Greece','mdimi4','2023-10-01 12:55:29','2023-10-03'),
+		(82649123,'2024-02-20','900','Personal Assistant','Patras,Greece','kpapado99','2023-12-20 10:39:58','2023-12-23'),
+		(12893049,'2023-11-01','900','Secretary','Patras,Greece','kpapado99','2023-09-25 11:12:09','2023-10-05'),
+		(739408126,'2024-01-20','1200','Αccountant','Patras,Greece','kpetr3','2023-12-01 11:23:29','2023-12-03'),
+		(890123769,'2024-02-10','1600','Manager','Patras,Greece','dm789','2024-01-10 09:19:48','2024-01-20'),
+		(273905471,'2024-01-29','2000','Manager','Patras,Greece','nkots','2024-01-09 08:09:57','2024-01-25');
+        
+        
+INSERT INTO applies(em_username, job_id, date_of_submission, status, evaluator1, score1, evaluator2, score2)
+VALUES 
+('ArminAtler', 93, '2023-02-02', 'Active', 'sarahbrown010', NULL, 'davidlee456', NULL),
+('ErenYeager', 101, '2023-03-15', 'Active', 'laurajohnson123', NULL, 'sarahbrown010', 9),
+('SashaBraus', 300, '2023-04-20', 'Active', 'davidlee456', 18, 'laurajohnson123', 15),
+('SashaBraus', 101, '2023-06-08', 'Active', 'kpapado99', 12, 'kpetr3', 17),
+('robertj123', 55, '2023-08-11', 'Active', 'mdimi4', 19, 'mikesullivan789', 16),
+('g1kar', 649109823, '2023-10-17', 'Active', 'chriswilson111', 14, 'emilymartinez789', 20),
+('anastaso!', 780098124, '2023-11-25', 'Active', 'nkots', NULL, 'elenandri123', 19),
+('gpaulo4!', 691730223, '2023-12-29', 'Active', 'dm789', 16, 'nkots', 18),
+('ankotrop88', 739408126, '2023-07-04', 'Active', 'sarahbrown010', 20, 'mdimi4', 17),
+('kmanopoulou', 12893049, '2023-09-30', 'Active', 'kpapado99', NULL, 'laurajohnson123', 18),
+('markara9@1', 273905471, '2023-05-05', 'Active', 'dm789', 19, 'mikesullivan789', 15);
+
+
+
+INSERT INTO subject (title, descr, belongs_to)
+VALUES  ('math', 'descr1', NULL),
+		('statistic', 'descr2', 'math'),
+        ('algebra', 'descr3', 'math'),
+        ('propabilities', 'descr4', 'statistic'),
+        ('computer science', 'descr5', NULL),
+        ('data managment', 'descr6', 'computer science'),
+        ('advanced data management', 'descr7', 'data managment'),
+        ('geometry', 'descr8', 'math'),
+        ('Γραμματειακή Υποστήριξη (Γάλα Πρώτο)', 'Aπάντηση εισερχομένων κλήσεων και βέλτιστη εξυπηρέτηση των αιτημάτων, συντονισμός και την παροχή υποστήριξης σχετικά με διάφορα meetings και εκδηλώσεις', null),
+		('Μάνατζερ (Μπισκότα Παπαδοπούλου)','Υπεύθυνος για τη λήψη αποφάσεων για την πορεία του οργανισμού, διευθύνει άλλους μάνατζερ, υπεύθυνος για την καθοδήγηση μη διοικητικών εργαζομένων', null),
+		('Λογιστής (Τσίχλες Μαστίχα)', 'Εκτίμηση του κόστους των πρώτων υλών, της εργασίας, κατασκευής, τις πωλήσεις και τη διαφήμιση και του εσωτερικού   κόστους   λειτουργίας   της   επιχείρησης', null),
+		('Προσωπικός Βοηθός (Γάλα Πρώτο)', 'Οργάνωση του ημερήσιου προγράμματος, συντονισμός και κρατήσεις επαγγελματικών ταξιδιών, συντονισμός των καθημερινών αρμοδιοτήτων του γραφείου, παραλαβή της αλληλογραφίας' ,'Γραμματειακή Υποστήριξη (Γάλα Πρώτο)'),
+		('Γραμματειά (Τσίχλες Μαστίχα)', 'Συντονισμός και την παροχή υποστήριξης σχετικά με διάφορα meetings και εκδηλώσεις, διατήρηση και ανανέωση των εταιρικών πολιτικών, όποτε αυτό κριθεί απαραίτητο και προετοιμασία των εταιρικών παρουσιάσεων', null),
+		('Οικονομικός Διευθυντής','Παροχή στρατηγικών συστάσεων για συγκεκριμένα οικονομικά προβλήματα ή καταστάσεις, συγκέντρωση πλήθους διοικητικών ρόλων στο πλαίσιο των λειτουργιών της επιχείρησης, συλλογή και διατήρηση των οικονομικών δεδομένων','Λογιστής (Τσίχλες Μαστίχα)'),
+		('Γενικός Διευθυντής', 'Υπεύθυνος για τη λήψη αποφάσεων για την πορεία του οργανισμού','Μάνατζερ (Μπισκότα Παπαδοπούλου)'),
+		('Υπεύθυνος Έργων','Διευθύνει άλλους μάνατζερ και επιβλέπει την ορθή διεξαγωγή της διαδικασίας παραγωγής','Μάνατζερ (Μπισκότα Παπαδοπούλου)');
+
+
+INSERT INTO requires (job_id, subject_title)
+VALUES  (152, 'math'),
+		(55, 'computer science'),
+		(300, 'geometry'),
+		(93, 'advanced data management'),
+		(259, 'math'),
+		(101, 'geometry'),
+		(202, 'statistic'),
+		(156, 'propabilities'),
+        (780098124,'Γραμματειακή Υποστήριξη (Γάλα Πρώτο)'),
+		(649109823,'Μάνατζερ (Μπισκότα Παπαδοπούλου)'),
+		(691730223,'Λογιστής (Τσίχλες Μαστίχα)'),
+		(82649123,'Προσωπικός Βοηθός (Γάλα Πρώτο)'),
+		(12893049,'Γραμματειά (Τσίχλες Μαστίχα)'),
+		(739408126,'Οικονομικός Διευθυντής'),
+		(890123769,'Γενικός Διευθυντής'),
+		(273905471,'Υπεύθυνος Έργων');
+
+INSERT INTO dba(username, start_date, end_date)
+VALUES ('Camille', '2023-2-2 ', NULL),
+		('Cho gath', '2022-3-7', '2022-8-8');
+        
+INSERT INTO promotion_log(em_username, job_id, status, evaluator1, evaluator2, average_score)
+VALUES 
+('ArminAtler', 780098124,  'Completed', 'sarahbrown010', 'davidlee456', 0),
+('ErenYeager', 649109823,  'Completed', 'laurajohnson123',  'sarahbrown010', 12.5),
+('SashaBraus', 649109823,  'Completed', 'davidlee456', 'laurajohnson123', 10),
+('SashaBraus', 82649123,  'Completed', 'kpapado99',  'kpetr3', 0),
+('robertj123', 12893049,  'Completed', 'mdimi4', 'mikesullivan789', 2);
+
+
+INSERT INTO got_the_job(username, job_id, score)
+VALUES ('ArminAtler', 273905471, 8.0),
+		('SashaBraus',649109823 , 12.5);

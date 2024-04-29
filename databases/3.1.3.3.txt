@@ -1,0 +1,133 @@
+DELIMITER $
+CREATE PROCEDURE find_best_applicant(IN p_id INT)
+BEGIN 
+    DECLARE job_exists INT;
+    DECLARE em_user VARCHAR(30);
+    DECLARE bid INT;
+    DECLARE stat ENUM('Active', 'Completed', 'Canceled');
+    DECLARE eval1 VARCHAR(30);
+    DECLARE eval2 VARCHAR(30);
+    DECLARE sc1 INT;
+    DECLARE sc2 INT;
+    DECLARE date_sub DATE;
+    DECLARE not_found INT;
+    DECLARE mo FLOAT;
+    DECLARE max_score FLOAT;
+    DECLARE max_user VARCHAR(30);
+    DECLARE early_date DATE;
+
+
+    DECLARE bcursor CURSOR FOR
+        SELECT em_username, job_id, date_of_submission, status, evaluator1, score1, evaluator2, score2
+        FROM applies 
+        WHERE job_id = p_id;
+        
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET not_found=1;
+
+
+    SELECT COUNT(*) 
+    INTO job_exists 
+    FROM applies 
+    WHERE job_id = p_id AND status = 'Active';
+
+    IF job_exists = 0 THEN
+        SELECT 'No active applications exist.';
+    ELSE
+
+
+        SET @x = 50;
+        SET @y = 50;
+        
+        SET max_score = 0;
+        SET max_user = '';
+        SET early_date = '2025-5-5';
+        
+        SET not_found = 0;
+        OPEN bcursor;
+
+        FETCH bcursor INTO em_user, bid, date_sub, stat, eval1, sc1, eval2, sc2;
+
+            WHILE (not_found = 0) DO
+                CALL evaluate(p_id, em_user, eval1, @x);
+                CALL evaluate(p_id, em_user, eval2, @y);
+
+                SET mo = (@x + @y) / 2;
+
+                IF (mo > max_score AND stat = 'Active') THEN 
+                    SET max_score = mo;
+                    SET max_user = em_user;
+                    SET early_date = date_sub;
+                END IF;
+
+                IF (mo = max_score AND date_sub < early_date AND stat = 'Active') THEN 
+                    SET max_score = mo;
+                    SET max_user = em_user;
+                    SET early_date = date_sub;
+                END IF;
+
+                FETCH bcursor INTO em_user, bid, date_sub, stat, eval1, sc1, eval2, sc2;
+            END WHILE;
+
+            CLOSE bcursor;
+
+                INSERT INTO got_the_job(username, job_id, score) VALUES(max_user, bid, max_score);
+            END IF;
+
+END$
+DELIMITER ;
+
+
+DELIMITER $
+CREATE PROCEDURE complete(IN p_id INT)
+BEGIN 
+    DECLARE em_user VARCHAR(30);
+    DECLARE bid INT;
+    DECLARE stat ENUM('Active', 'Completed', 'Canceled');
+    DECLARE eval1 VARCHAR(30);
+    DECLARE eval2 VARCHAR(30);
+    DECLARE sc1 INT;
+    DECLARE sc2 INT;
+    DECLARE date_sub DATE;
+    DECLARE not_found INT;
+    DECLARE mo FLOAT;
+    
+    DECLARE bcursor CURSOR FOR
+	SELECT em_username, job_id, status, evaluator1, score1, evaluator2, score2
+    FROM applies 
+    WHERE job_id = p_id;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET not_found=1;
+
+	SET @x = 50;
+    SET @y = 50;
+    OPEN bcursor;
+    SET not_found = 0;
+    FETCH bcursor INTO em_user, bid, stat, eval1, sc1, eval2, sc2;
+
+	IF (not_found = 1) THEN 
+    SELECT 'Job does not exist.';
+    END IF;
+    
+    WHILE (not_found = 0) DO
+			
+			CALL evaluate(p_id, em_user, eval1, @x);
+            CALL evaluate(p_id, em_user, eval2, @y);
+            
+            SET mo = (@x + @y)/2;
+            
+            DELETE FROM applies 
+            WHERE em_username = em_user AND job_id = p_id;
+            
+            IF (stat = 'Canceled') THEN 
+				INSERT INTO promotion_log(em_username, job_id, status, evaluator1, evaluator2, average_score)
+				VALUES(em_user, bid, 'Completed', eval1, eval2, 0);
+            ELSE
+				INSERT INTO promotion_log(em_username, job_id, status, evaluator1, evaluator2, average_score)
+				VALUES(em_user, bid, 'Completed', eval1, eval2, mo);
+			END IF;
+            FETCH bcursor INTO em_user, bid, stat, eval1, sc1, eval2, sc2;
+    END WHILE;
+
+    CLOSE bcursor;
+END$
+DELIMITER ;

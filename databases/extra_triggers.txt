@@ -1,0 +1,27 @@
+DELIMITER $
+CREATE TRIGGER project_number 
+BEFORE INSERT ON project
+FOR EACH ROW 
+BEGIN
+	DECLARE maxNum INT;
+
+	SELECT COUNT(*) 
+    INTO maxNum 
+	FROM project
+	WHERE candid = NEW.candid;
+
+	SET NEW.num = maxNum+1;
+END$
+DELIMITER ;    
+
+
+DELIMITER $
+CREATE TRIGGER subm_date
+BEFORE INSERT ON job
+FOR EACH ROW 
+BEGIN
+	
+    SET NEW.submission_date = DATE_SUB(NEW.start_date, INTERVAL 15 DAY);
+
+END$
+DELIMITER ;

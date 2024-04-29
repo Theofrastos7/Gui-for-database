@@ -1,0 +1,35 @@
+DELIMITER $
+CREATE TRIGGER newstartdateandmaxnumofapply 
+BEFORE INSERT ON applies
+FOR EACH ROW 
+BEGIN
+	DECLARE diff INT;
+	DECLARE maxapply INT;
+    DECLARE final_date DATE;
+    
+    SELECT start_date
+    INTO final_date
+    FROM job
+    WHERE id = NEW.job_id;
+    
+	SET final_date = DATE_SUB(final_date, INTERVAL 15 DAY);
+
+	IF NEW.date_of_submission > final_date THEN 
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Invalid date for application! Must be within 15 days from starting date.';
+	END IF;
+		
+	SELECT COUNT(*)
+    INTO maxapply 
+	FROM applies
+	WHERE em_username = NEW.em_username AND status = 'Active' AND NEW.status = 'Active';
+    
+	IF maxapply >= 3 THEN
+		SIGNAL SQLSTATE VALUE '45000'
+		SET MESSAGE_TEXT = 'Can not apply for more than 3 active positions!(1st trigger)';
+	END IF;
+END$
+DELIMITER ; 
+
+
+

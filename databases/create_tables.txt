@@ -1,0 +1,222 @@
+CREATE DATABASE project2;
+
+USE project2;
+
+CREATE TABLE user (
+  username VARCHAR(30) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  name VARCHAR(25) NOT NULL,
+  lastname VARCHAR(45) NOT NULL,
+  reg_date DATETIME NOT NULL,
+  email VARCHAR(30) NULL,
+  PRIMARY KEY (username))ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+  
+CREATE TABLE employee (
+  username VARCHAR(30) NOT NULL,
+  bio MEDIUMTEXT NULL,
+  sistatikes VARCHAR(35) NULL,
+  certificates VARCHAR(35) NULL,
+  PRIMARY KEY (username),
+  CONSTRAINT FK_username
+    FOREIGN KEY (username) REFERENCES user (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE languages (
+  candid VARCHAR(30) NOT NULL,
+  lang SET ('EN','FR','SP','GE','CH','GR'),
+  PRIMARY KEY (candid, lang), 
+  CONSTRAINT FK_candid
+  FOREIGN KEY (candid) REFERENCES employee (username) 
+  ON DELETE CASCADE
+    ON UPDATE CASCADE  )ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+  
+  
+CREATE TABLE project (
+   candid VARCHAR(30) NOT NULL,
+   num TINYINT NOT NULL,
+   descr TEXT NOT NULL,
+   url VARCHAR(60) NOT NULL,
+   PRIMARY KEY (candid, num),
+   CONSTRAINT FK_candid2
+    FOREIGN KEY (candid) REFERENCES employee (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+    
+CREATE TABLE etaireia (
+  AFM CHAR(9) NOT NULL,
+  DOY VARCHAR(30) NOT NULL,
+  name VARCHAR(35) NOT NULL,
+  tel VARCHAR(10) NOT NULL,
+  street VARCHAR(15) NOT NULL,
+  num INT NOT NULL,
+  city VARCHAR(45) NOT NULL,
+  country VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`AFM`))ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;    
+  
+
+CREATE TABLE evaluator (
+  username VARCHAR(30) NOT NULL,
+  exp_years TINYINT NOT NULL,
+  firm CHAR(9) NOT NULL,
+  PRIMARY KEY (username),
+  CONSTRAINT FK_firm
+    FOREIGN KEY (firm) REFERENCES etaireia (AFM)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT FK_username1
+    FOREIGN KEY (username) REFERENCES user (username)
+   ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;  
+
+CREATE TABLE degree (
+  titlos VARCHAR(150) NOT NULL,
+  idryma VARCHAR(150) NOT NULL,
+  bathmida ENUM('BSc', 'MSc', 'PhD') NOT NULL,
+  PRIMARY KEY (titlos, idryma))ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE has_degree (
+  degr_tittle VARCHAR(150) NOT NULL,
+  degr_idryma VARCHAR(140) NOT NULL,
+  cand_username VARCHAR(30) NOT NULL,
+  etos YEAR NOT NULL,
+  grade FLOAT NOT NULL,
+  PRIMARY KEY (degr_tittle, degr_idryma, cand_username),
+  CONSTRAINT FK_cand_username
+  FOREIGN KEY (cand_username) REFERENCES employee (username)
+  ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT FK_degr_tittle_idryma
+  FOREIGN KEY (degr_tittle, degr_idryma) REFERENCES degree (titlos, idryma)
+  ON DELETE CASCADE
+    ON UPDATE CASCADE  )ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE job (
+  id INT NOT NULL,
+  start_date DATE NOT NULL,
+  salary FLOAT NOT NULL,
+  position VARCHAR(60) NOT NULL,
+  edra VARCHAR(60) NOT NULL,
+  evaluator VARCHAR(30) NOT NULL,
+  announce_date DATETIME NOT NULL,
+  submission_date DATE NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_evaluator
+    FOREIGN KEY (evaluator) REFERENCES evaluator (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE applies(
+	em_username VARCHAR(30) NOT NULL,
+	job_id INT NOT NULL,
+    date_of_submission DATE,
+    status ENUM('Active', 'Canceled') NOT NULL,
+    evaluator1 VARCHAR(30) NOT NULL,
+    score1 INT CHECK (score1 BETWEEN 1 AND 20),
+    evaluator2 VARCHAR(30) NOT NULL,
+    score2 INT CHECK (score2 BETWEEN 1 AND 20),
+    PRIMARY KEY(em_username, job_id),
+    CONSTRAINT FK_job_id3 
+    FOREIGN KEY (job_id) REFERENCES job (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT em_usern 
+    FOREIGN KEY (em_username) REFERENCES employee (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT first_ev 
+    FOREIGN KEY (evaluator1) REFERENCES evaluator (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT second_ev 
+    FOREIGN KEY (evaluator2) REFERENCES evaluator (username)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+
+CREATE TABLE subject (
+title VARCHAR(36) NOT NULL,
+descr TINYTEXT,
+belongs_to VARCHAR(36) ,
+PRIMARY KEY (title),
+CONSTRAINT FK_belongs_to
+FOREIGN KEY (belongs_to) REFERENCES subject (title)
+ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE requires (
+	job_id INT NOT NULL,
+    subject_title VARCHAR(36),
+    PRIMARY KEY (job_id, subject_title),
+    CONSTRAINT FK_job_id2
+    FOREIGN KEY (job_id) REFERENCES job (id) 
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT FK_subject_title
+	FOREIGN KEY (subject_title) REFERENCES subject (title)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE promotion_log (
+	em_username VARCHAR(30) NOT NULL,
+	job_id INT NOT NULL,
+    status ENUM('Completed') NOT NULL,
+    evaluator1 VARCHAR(30),
+    evaluator2 VARCHAR(30),
+    average_score FLOAT CHECK (average_score BETWEEN 0 AND 20),
+    PRIMARY KEY(em_username, job_id),
+    CONSTRAINT FK_job_id4
+    FOREIGN KEY (job_id) REFERENCES job (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT em_userna 
+    FOREIGN KEY (em_username) REFERENCES employee (username)
+   ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT first_eval 
+    FOREIGN KEY (evaluator1) REFERENCES evaluator (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT second_eval 
+    FOREIGN KEY (evaluator2) REFERENCES evaluator (username)
+ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE DBA (
+  username VARCHAR(30) NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE,  
+  PRIMARY KEY (username),
+  CONSTRAINT FK_username3
+  FOREIGN KEY (username) REFERENCES user (username)
+  ON DELETE CASCADE
+    ON UPDATE CASCADE  )ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci; 
+  
+CREATE TABLE got_the_job (
+username VARCHAR(30) NOT NULL,
+job_id INT NOT NULL,
+score FLOAT CHECK (score BETWEEN 0 AND 20),
+PRIMARY KEY(username, job_id),
+CONSTRAINT FK_job_id7
+FOREIGN KEY (job_id) REFERENCES job (id)
+ON DELETE CASCADE
+    ON UPDATE CASCADE,
+CONSTRAINT em_userna2
+FOREIGN KEY (username) REFERENCES employee (username)
+ON DELETE CASCADE
+    ON UPDATE CASCADE)ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+
+CREATE TABLE historyofapply(
+	employee_username varchar(30) NOT NULL,
+	job_id int NOT NULL, 
+	evaluator1 varchar(30) NOT NULL,
+	evaluator2 varchar(30) NOT NULL,
+	state ENUM('Completed') NOT NULL,
+	grade INT NOT NULL,
+	PRIMARY KEY(employee_username,job_id))ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;
+    
+    CREATE TABLE log(
+	user varchar(80) NOT NULL,
+	stamp timestamp NOT NULL,
+	action varchar(10) NOT NULL,
+	changes varchar(400) NOT NULL  )ENGINE = InnoDB CHARACTER SET greek COLLATE greek_general_ci;

@@ -1,0 +1,79 @@
+DELIMITER $
+
+CREATE PROCEDURE modify(IN p_id INT, IN p_user VARCHAR(30), IN decision CHAR(1))
+BEGIN 
+    DECLARE plithos INT;
+    DECLARE eval1 VARCHAR(30);
+    DECLARE eval2 VARCHAR(30);
+    DECLARE etaireia CHAR(9);
+    DECLARE chech INT;
+    DECLARE chech2 INT;
+
+    SELECT COUNT(*) 
+    INTO chech FROM 
+    job WHERE id = p_id;
+    
+    SELECT COUNT(*) 
+    INTO chech2
+    FROM employee 
+    WHERE username = p_user;
+
+    IF (chech = 0) THEN
+        SELECT 'There is no job with this id.';
+    ELSEIF (chech2 = 0) THEN 
+        SELECT 'There is no employee with this username.';
+    ELSE 
+        CASE decision
+            WHEN 'i' THEN 
+                SELECT COUNT(*) 
+                INTO plithos 
+                FROM applies 
+                WHERE em_username = p_user AND job_id = p_id;
+
+                IF (plithos = 1) THEN 
+                    SELECT 'There is already an application for this position';
+                ELSE 
+                    SET eval2 = NULL;
+
+                    WHILE (eval2 IS NULL) DO
+                        SELECT username, firm 
+                        INTO eval1, etaireia 
+                        FROM evaluator
+                        ORDER BY RAND() LIMIT 1;
+                        
+                        SELECT username 
+                        INTO eval2 
+                        FROM evaluator
+                        WHERE firm = etaireia AND username != eval1 ORDER BY RAND() LIMIT 1;
+                    END WHILE;
+
+                    INSERT INTO applies(em_username, job_id, date_of_submission, status, evaluator1, score1, evaluator2, score2)
+                    VALUES (p_user, p_id, CURRENT_DATE(),'Active', eval1, NULL, eval2, NULL);
+                END IF;
+
+            WHEN 'c' THEN 
+                SELECT COUNT(*) INTO plithos FROM applies WHERE em_username = p_user AND job_id = p_id AND status = 'Active';
+
+                IF (plithos = 0) THEN
+                    SELECT 'No active application or already canceled';
+                ELSE 
+                    UPDATE applies SET status = 'Canceled' WHERE em_username = p_user AND job_id = p_id; 
+                    SELECT 'Successful cancellation';
+                END IF;
+
+            WHEN 'a' THEN 
+                SELECT COUNT(*) INTO plithos FROM applies WHERE em_username = p_user AND job_id = p_id AND status = 'Canceled';
+
+                IF (plithos = 0) THEN
+                    SELECT 'No canceled application or already active';
+                ELSE 
+                    UPDATE applies SET status = 'Active' WHERE em_username = p_user AND job_id = p_id; 
+                    SELECT 'Successful activation';
+                END IF;
+
+            ELSE SELECT 'Wrong Input Choice.';
+        END CASE;
+    END IF;
+
+END$
+DELIMITER ;

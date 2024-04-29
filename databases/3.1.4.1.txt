@@ -1,0 +1,161 @@
+DELIMITER $
+CREATE TRIGGER insertlogonjob AFTER INSERT ON job
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(NEW.id, ', ', 
+		NEW.start_date, ', ',
+		NEW.salary, ', ',
+		NEW.position, ', ',
+		NEW.edra, ', ',
+		NEW.evaluator, ', ',
+		NEW.announce_date, ', ',
+		NEW.submission_date);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'INSERT', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER updatelogonjob AFTER UPDATE ON job
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(NEW.id, ', ', 
+		NEW.start_date, ', ',
+		NEW.salary, ', ',
+		NEW.position, ', ',
+		NEW.edra, ', ',
+		NEW.evaluator, ', ',
+		NEW.announce_date, ', ',
+		NEW.submission_date);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'UPDATE', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER deletelogonjob AFTER DELETE ON job
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(
+          OLD.id, ', ',
+          OLD.start_date, ', ',
+          OLD.salary, ', ',
+          OLD.position, ', ',
+          OLD.edra, ', ',
+          OLD.evaluator, ', ',
+          OLD.announce_date, ', ',
+          OLD.submission_date
+      );
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'DELETE', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER insertlogonuser AFTER INSERT ON user
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(NEW.username, ', ', 
+		NEW.password, ', ',
+		NEW.name, ', ',
+		NEW.lastname, ', ',
+		NEW.reg_date, ', ',
+		NEW.email);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'INSERT', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER updatelogonuser AFTER UPDATE ON user
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(NEW.username, ', ', 
+		NEW.password, ', ',
+		NEW.name, ', ',
+		NEW.lastname, ', ',
+		NEW.reg_date, ', ',
+		NEW.email);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'UPDATE', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER deletelogonuser AFTER DELETE ON user
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(OLD.username, ', ',
+ 	         OLD.password, ', ',
+ 	         OLD.name, ', ',
+ 	         OLD.lastname, ', ',
+ 	         OLD.reg_date, ', ',
+ 	         OLD.email);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'DELETE', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER insertlogondegree AFTER INSERT ON degree
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(NEW.titlos, ', ', 
+		NEW.idryma, ', ',
+		NEW.bathmida);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'INSERT', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER updatelogondegree AFTER UPDATE ON degree
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(NEW.titlos, ', ', 
+		NEW.idryma, ', ',
+		NEW.bathmida);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'UPDATE', changes);
+END$
+DELIMITER ;
+
+DELIMITER $
+CREATE TRIGGER deletelogondegree AFTER DELETE ON degree
+FOR EACH ROW
+BEGIN 
+		DECLARE changes VARCHAR(400);
+		
+		SET changes=
+		CONCAT(OLD.titlos, ', ', 
+		OLD.idryma, ', ',
+		OLD.bathmida);
+
+		INSERT INTO log VALUES(CURRENT_USER(),CURRENT_TIMESTAMP(), 'DELETE', changes);
+END$
+DELIMITER ; 
+
